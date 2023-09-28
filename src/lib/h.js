@@ -39,7 +39,7 @@ import StoreValue from './StoreValue.svelte'
 
 const COMPONENT_SLOTS = new WeakMap()
 
-export default function h(type, props, ...children) {
+export function h(type, props, ...children) {
   const $$props = {}
   let slot = null
   const $$letSetters = {}
