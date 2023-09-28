@@ -1,1 +1,4 @@
-// Reexport your entry components here
+import { h } from "./h.js"
+
+export { h }
+export default h
