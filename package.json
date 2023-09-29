@@ -1,5 +1,5 @@
 {
-	"name": "@playpilot_tech/svelte-hyperscript",
+	"name": "@playpilot/svelte-hyperscript",
 	"version": "1.0.1",
 	"scripts": {
 		"dev": "vite dev",
