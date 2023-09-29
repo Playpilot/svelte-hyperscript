@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { render, fireEvent } from '@testing-library/svelte'
 
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('on:eventname', () => {
   it('supports click listener', async () => {

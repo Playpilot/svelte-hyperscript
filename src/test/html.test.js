@@ -3,7 +3,7 @@ import { render, act } from '@testing-library/svelte'
 import { writable } from 'svelte/store'
 import Fragment from '@playpilot/svelte-fragment-component'
 
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('html', () => {
   it('supports nested html', () => {

@@ -5,7 +5,7 @@ import { writable, get } from 'svelte/store'
 import Counter from './Counter.svelte'
 import List from './List.svelte'
 
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('html', () => {
   it('increments count when button is clicked', async () => {

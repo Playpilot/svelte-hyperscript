@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { render } from '@testing-library/svelte'
 
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('use:action', () => {
   it('it call action factory', async () => {

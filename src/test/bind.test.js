@@ -5,7 +5,7 @@ import { writable, get } from 'svelte/store'
 import Fragment from '@playpilot/svelte-fragment-component'
 
 import Counter from './Counter.svelte'
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('bind:property', () => {
   describe('on component', () => {

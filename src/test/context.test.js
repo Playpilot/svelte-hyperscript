@@ -3,7 +3,7 @@ import { render } from '@testing-library/svelte'
 import { getContext } from 'svelte'
 import Fragment from '@playpilot/svelte-fragment-component'
 
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('context API', () => {
   it('propagates context', () => {

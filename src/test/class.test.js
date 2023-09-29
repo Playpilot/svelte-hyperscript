@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { render, act } from '@testing-library/svelte'
 import { writable, derived } from 'svelte/store'
 
-import h from '../lib/h'
+import { h } from '../lib/h'
 
 describe('class:name', () => {
   it('should toogle the classes', async () => {
