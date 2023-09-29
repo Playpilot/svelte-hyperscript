@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { render, fireEvent, act } from '@testing-library/svelte'
 import userEvent from '@testing-library/user-event'
 import { writable, get } from 'svelte/store'
-import Fragment from '@mitcheljager/svelte-fragment-component'
+import Fragment from '@playpilot/svelte-fragment-component'
 
 import Counter from './Counter.svelte'
 import h from '../lib/h'
@@ -523,6 +523,189 @@ describe('bind:property', () => {
       expect(get(offsetHeight)).toBe(0)
     })
   })
+
+  describe('bind:group', () => {
+    it('binds on checkbox', async () => {
+      const selected = writable()
+
+      const { getAllByRole } = render(
+        h(
+          Fragment,
+          null,
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'a' }),
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'b' }),
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'c' }),
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'd' }),
+        ),
+      )
+
+      const [a, b, c, d] = getAllByRole('checkbox')
+
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toEqual([])
+
+      await userEvent.click(b)
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toEqual(['b'])
+
+      await userEvent.click(d)
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).toBe(true)
+      expect(get(selected)).toEqual(['b', 'd'])
+
+      await act(() => selected.set(['a', 'c', 'd']))
+      expect(a.checked).toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).toBe(true)
+      expect(d.checked).toBe(true)
+      expect(get(selected)).toEqual(['a', 'c', 'd'])
+    })
+
+    it('binds on checkbox with initial selected', async () => {
+      const selected = writable(['a', 'd'])
+
+      const { getAllByRole } = render(
+        h(
+          Fragment,
+          null,
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'a' }),
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'b' }),
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'c' }),
+          h('input', { type: 'checkbox', 'bind:group': selected, value: 'd' }),
+        ),
+      )
+
+      const [a, b, c, d] = getAllByRole('checkbox')
+
+      expect(a.checked).toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).toBe(true)
+      expect(get(selected)).toEqual(['a', 'd'])
+    })
+
+    it('binds on radio', async () => {
+      const selected = writable()
+
+      const { getAllByRole } = render(
+        h(
+          Fragment,
+          null,
+          h('input', { type: 'radio', 'bind:group': selected, value: 'a' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'b' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'c' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'd' }),
+        ),
+      )
+
+      const [a, b, c, d] = getAllByRole('radio')
+
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toBeUndefined()
+
+      await userEvent.click(b)
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toBe('b')
+
+      await userEvent.click(d)
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).toBe(true)
+      expect(get(selected)).toBe('d')
+
+      await act(() => selected.set('c'))
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toBe('c')
+    })
+
+    it('binds on radio with initial selected', async () => {
+      const selected = writable('b')
+
+      const { getAllByRole } = render(
+        h(
+          Fragment,
+          null,
+          h('input', { type: 'radio', 'bind:group': selected, value: 'a' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'b' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'c' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'd' }),
+        ),
+      )
+
+      const [a, b, c, d] = getAllByRole('radio')
+
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toBe('b')
+    })
+
+    it('binds on radio with initial checked', async () => {
+      const selected = writable()
+
+      const { getAllByRole } = render(
+        h(
+          Fragment,
+          null,
+          h('input', { type: 'radio', 'bind:group': selected, value: 'a' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'b' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'c', checked: true }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'd' }),
+        ),
+      )
+
+      const [a, b, c, d] = getAllByRole('radio')
+
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).not.toBe(true)
+      expect(c.checked).toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toBe('c')
+    })
+
+    it('binds on radio with initial selected (prefered) and checked', async () => {
+      const selected = writable('b')
+
+      const { getAllByRole } = render(
+        h(
+          Fragment,
+          null,
+          h('input', { type: 'radio', 'bind:group': selected, value: 'a' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'b' }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'c', checked: true }),
+          h('input', { type: 'radio', 'bind:group': selected, value: 'd' }),
+        ),
+      )
+
+      const [a, b, c, d] = getAllByRole('radio')
+
+      expect(a.checked).not.toBe(true)
+      expect(b.checked).toBe(true)
+      expect(c.checked).not.toBe(true)
+      expect(d.checked).not.toBe(true)
+      expect(get(selected)).toBe('b')
+    })
+  })
+
 
   describe('bind:this', () => {
     it('sets the dom node reference', async () => {

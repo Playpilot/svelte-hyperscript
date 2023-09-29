@@ -26,7 +26,7 @@
 		"svelte": "^4.0.0"
 	},
 	"devDependencies": {
-		"@playpilot_tech/svelte-fragment-component": "^1.0.1",
+		"@playpilot/svelte-fragment-component": "^1.0.2",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"@sveltejs/package": "^2.0.0",

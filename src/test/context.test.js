@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { render } from '@testing-library/svelte'
 import { getContext } from 'svelte'
-import Fragment from '@mitcheljager/svelte-fragment-component'
+import Fragment from '@playpilot/svelte-fragment-component'
 
 import h from '../lib/h'
 
