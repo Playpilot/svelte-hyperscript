@@ -15,6 +15,12 @@ describe('html', () => {
     expect(heading.outerHTML).toMatch('<h1 class="large">Hello <strong>World</strong>!</h1>')
   })
 
+  it('supports multiple root elements (fragments)', () => {
+    const { container } = render(h(Fragment, null, h('span', null, 'a'), h('span', null, 'b')))
+
+    expect(container.innerHTML).toMatch('<div><span>a</span><span>b</span></div>')
+  })
+
   it('allows to use a store as child', async () => {
     const count = writable(0)
 
