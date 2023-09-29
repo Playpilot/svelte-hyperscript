@@ -1,5 +1,5 @@
 {
-	"name": "@mitcheljager/svelte-hyperscript",
+	"name": "@playpilot_tech/svelte-hyperscript",
 	"version": "1.0.1",
 	"scripts": {
 		"dev": "vite dev",
@@ -26,7 +26,7 @@
 		"svelte": "^4.0.0"
 	},
 	"devDependencies": {
-		"@mitcheljager/svelte-fragment-component": "^1.0.1",
+		"@playpilot_tech/svelte-fragment-component": "^1.0.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"@sveltejs/package": "^2.0.0",
