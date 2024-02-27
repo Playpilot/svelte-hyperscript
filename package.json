@@ -43,6 +43,9 @@
 	"dependencies": {
 		"@playpilot/svelte-fragment-component": "^1.0.2"
 	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
